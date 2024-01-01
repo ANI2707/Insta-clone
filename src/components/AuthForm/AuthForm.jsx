@@ -1,63 +1,20 @@
-import {
-  Box,
-  Button,
-  Flex,
-  Image,
-  Input,
-  Text,
-  VStack,
-} from "@chakra-ui/react";
+import { Box, Flex, Image, Text, VStack } from "@chakra-ui/react";
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import Login from "./Login";
+import Signup from "./Signup";
+import GoogleAuth from "./GoogleAuth";
 
 const AuthForm = () => {
   const [isLogin, setIsLogin] = useState(true);
-  const navigate=useNavigate();
-  const [inputs,setInputs]=useState({
-    email:'',
-    password:'',
-    confirmPassword:''
-  });
 
-
-  const handleAuth=()=>{
-        console.log(inputs);
-        if(!inputs.email || !inputs.password ){
-            alert("Please fill out all fields");
-            return;
-        }
-        navigate('/');
-
-  };
   return (
     <>
       <Box border={"1px solid gray"} borderRadius={4} padding={5}>
         <VStack spacing={4}>
           <Image src="/logo.png" h={24} cursor={"pointer"} alt="Instagram" />
-          <Input placeholder="Email" type="email" fontSize={14} 
-            value={inputs.email}
-            onChange={(e)=>setInputs({...inputs,email:e.target.value})}
-          />
-          <Input placeholder="Password" type="password" fontSize={14} 
-            value={inputs.password}
-            onChange={(e)=>setInputs({...inputs,password:e.target.value})}
-          />
 
-          {!isLogin ? (
-            <Input
-              placeholder="Confirm Password"
-              type="password"
-              fontSize={14}
-              value={inputs.confirmPassword}
-              onChange={(e) =>
-                setInputs({ ...inputs, confirmPassword: e.target.value })
-                }
-            />
-          ) : null}
-
-          <Button onClick={handleAuth}  w={"full"} colorScheme="blue" size={"sm"} fontSize={14} >
-            {isLogin ? "Log In" : "Sign Up"}
-          </Button>
+          {/* Login and signup auth component */}
+          {isLogin ? <Login /> : <Signup />}
 
           {/* -------------OR text---------------- */}
           <Flex
@@ -74,16 +31,9 @@ const AuthForm = () => {
             <Box flex={2} h={"1px"} bg={"gray.400"} />
           </Flex>
 
-          <Flex
-            alignItems={"center"}
-            justifyContent={"center"}
-            cursor={"pointer"}
-          >
-            <Image src="/google.png" w={5} alt="Google Logo" />
-            <Text mx={2} color={"blue.500"}>
-              Log in with Google
-            </Text>
-          </Flex>
+          {/* Goggle auth component */}
+          <GoogleAuth />
+
         </VStack>
       </Box>
 
@@ -92,7 +42,13 @@ const AuthForm = () => {
           <Box mx={2} fontSize={14}>
             {isLogin ? "Don't have an account?" : "Already have an account"}
           </Box>
-          <Box cursor={"pointer"}  color={"blue.500"} onClick={() => setIsLogin(!isLogin)}>{isLogin ? "Sign up" : "Log In"}</Box>
+          <Box
+            cursor={"pointer"}
+            color={"blue.500"}
+            onClick={() => setIsLogin(!isLogin)}
+          >
+            {isLogin ? "Sign up" : "Log In"}
+          </Box>
         </Flex>
       </Box>
     </>
