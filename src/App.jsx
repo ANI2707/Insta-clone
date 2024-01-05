@@ -4,9 +4,12 @@ import AuthPage from "./pages/AuthPage/AuthPage"
 import HomePage from "./pages/HomePage/HomePage"
 import PageLayout from "./Layouts/PageLayout/PageLayout"
 import ProfilePage from './pages/ProfilePage/ProfilePage'
-import useAuthStore from './store/authStore'
+import { useAuthState } from 'react-firebase-hooks/auth'
+import { auth } from './firebase/firebase'
 function App() {
-  const authUser=useAuthStore(state=>state.user);
+  // const authUser=useAuthStore(state=>state.user); first we have created authUser with zustand store but it is not seccure that's why we created using firebase authenticated user
+  
+  const [authUser] = useAuthState(auth);
 
 
   return (
